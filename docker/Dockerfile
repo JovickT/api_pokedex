@@ -22,9 +22,12 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash \
 
 WORKDIR /usr/src/mysymfonyapp
 
-COPY composer.json composer.lock ./
 
-RUN composer install --no-dev --optimize-autoloader
+COPY docker/scriptdb.sh /usr/local/bin/scriptdb.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+COPY composer.json composer.lock ./ 
+RUN composer install --no-dev --optimize-autoloader || true
 
 COPY . .
 

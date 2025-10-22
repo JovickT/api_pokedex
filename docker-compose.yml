@@ -1,0 +1,28 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: api_pokedex
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  db:
+    image: mysql:8.0
+    container_name: db_pokedex
+    # restart: always
+    ports:
+      - "3306:3306"
+    env_file: ".env"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "test -f var/lib/mysql/db"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+
+volumes:
+  db-data:
