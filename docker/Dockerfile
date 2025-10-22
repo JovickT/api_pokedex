@@ -24,9 +24,9 @@ WORKDIR /usr/src/mysymfonyapp
 
 
 COPY docker/scriptdb.sh /usr/local/bin/scriptdb.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/scriptdb.sh
 
-COPY composer.json composer.lock ./ 
+# COPY composer.json composer.lock ./ 
 RUN composer install --no-dev --optimize-autoloader || true
 
 COPY . .
